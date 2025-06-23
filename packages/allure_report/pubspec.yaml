@@ -10,7 +10,11 @@ environment:
 dependencies:
   path: ^1.9.0
   freezed_annotation: ^2.4.1
-  test_reporter: ^1.2.0
+  test_reporter:
+    git:
+      url: https://github.com/hamzajuini1995/dart_test_reporter.git
+      path: packages/test_reporter
+      ref: fix/test-group
   universal_io: ^2.2.2
   uuid: ^4.4.0
   mime: ^2.0.0
