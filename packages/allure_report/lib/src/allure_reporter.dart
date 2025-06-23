@@ -11,7 +11,7 @@ import 'package:uuid/data.dart';
 import 'package:uuid/rng.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
-
+bool _initialized = false;
 /// Test reporter that can generate allure report files.
 class AllureReporter implements TestReporter {
   /// Timestamp when test started.
