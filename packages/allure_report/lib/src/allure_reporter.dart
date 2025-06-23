@@ -195,8 +195,14 @@ class AllureReporter implements TestReporter {
   /// Finalize report to allure test report file.
   Future<void> onReportCreated(TestReport report) async {
     // TODO(@melvspace): 06/12/24 define output with args
-    await Directory('allure-results').create();
-
+    if (!_initialized) {
+      final dir = Directory('allure-results');
+      if (await dir.exists()) {
+        await dir.delete(recursive: true);
+      }
+      await dir.create();
+      _initialized = true;
+    }
     final id = Uuid().v4();
     final attachments = <Map>[];
 
@@ -220,12 +226,16 @@ class AllureReporter implements TestReporter {
       });
     }
 
-    final test = report.start!.test;
+        final test = report.start!.test;
     if (test.name.contains(RegExp(r'^loading /'))) {
       // TODO(@melvspace): 06/17/24 investigate purpose of this pseudo test
       // ignore pseudo test
       return;
     }
+    if (test.name.contains('(setUpAll)')) return;
+    if (test.name.contains('(tearDownAll)')) return;
+    if (test.name.toLowerCase().startsWith('loading ')) return;
+
 
     final testPath = getPath(
       test,
