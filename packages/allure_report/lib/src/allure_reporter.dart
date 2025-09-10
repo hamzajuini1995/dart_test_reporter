@@ -197,9 +197,6 @@ class AllureReporter implements TestReporter {
     // TODO(@melvspace): 06/12/24 define output with args
     if (!_initialized) {
       final dir = Directory('allure-results');
-      if (await dir.exists()) {
-        await dir.delete(recursive: true);
-      }
       await dir.create();
       _initialized = true;
     }
