@@ -11,7 +11,7 @@ import 'package:uuid/data.dart';
 import 'package:uuid/rng.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
-bool _initialized = false;
+///bool _initialized = false;
 /// Test reporter that can generate allure report files.
 class AllureReporter implements TestReporter {
   /// Timestamp when test started.
@@ -195,11 +195,12 @@ class AllureReporter implements TestReporter {
   /// Finalize report to allure test report file.
   Future<void> onReportCreated(TestReport report) async {
     // TODO(@melvspace): 06/12/24 define output with args
-    if (!_initialized) {
-      final dir = Directory('allure-results');
-      await dir.create();
-      _initialized = true;
-    }
+    // if (!_initialized) {
+    //   final dir = Directory('allure-results');
+    //   await dir.create();
+    //   _initialized = true;
+    // }
+    await Directory('allure-results').create();
     final id = Uuid().v4();
     final attachments = <Map>[];
 
